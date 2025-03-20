@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchProducts } from '../store/actions';
+import Filter from './Filter';
 
 const Product = ()=>{
     const {isLoading, errorMessage} = useSelector((state) => state.errors);
@@ -13,6 +14,7 @@ const Product = ()=>{
     },[dispatch]);
     return(
         <div className="lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto">
+            <Filter />
             {isLoading ?(
                 <p>Loading...</p>
             ): errorMessage ?(
@@ -23,7 +25,6 @@ const Product = ()=>{
             ): (
                 <div className="min-h-[700px]">
                     <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
-                        <h2>Products</h2>
                         {products && products.map((items, i) =>
                             <ProductCard key={i} {...items}/>
                         )}
