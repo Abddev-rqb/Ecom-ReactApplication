@@ -39,7 +39,7 @@ const Filter =()=>{
                         Sort By <FiArrowUp size={20}/>
                     </Button>
                 </Tooltip>
-                <button className="flex items-center gap-2 bg-rose-900 text-white px-3 py-2">
+                <button className="flex items-center gap-2 bg-rose-900 text-white px-3 py-2 rounded-md transition duration-300 ease-in shadow-md focus:outline-none ">
                     <FiRefreshCcw className="font-semibold" size={16}/>
                     <span className="font-semibold">Clear Filter</span>
                 </button>
