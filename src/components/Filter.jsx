@@ -14,7 +14,7 @@ const Filter =()=>{
 
     const [searchParams]= useSearchParams();
     const params = new URLSearchParams(searchParams);
-    const pathName = useLocation().pathname;
+    const pathname = useLocation().pathname;
     const navigate = useNavigate();
 
     const [category, setCategory] = useState("all");
@@ -37,12 +37,12 @@ const Filter =()=>{
             }else{
                 searchParams.delete("keyword");
             }
-            navigate(`${pathName}?${searchParams.toString()}`);
+            navigate(`${pathname}?${searchParams.toString()}`);
         }, 700);
         return ()=>{
             clearTimeout(handler);
         };
-    },[searchParams,searchTerm,navigate,pathName]);
+    },[searchParams,searchTerm,navigate,pathname]);
 
 
     const handleCategoryChange = (event) =>{
@@ -52,14 +52,14 @@ const Filter =()=>{
         }else{
             params.set("category", selectCategory);
         }
-        navigate(`${pathName}?${params}`);
+        navigate(`${pathname}?${params}`);
         setCategory(event.target.value);
     };
     const toggleSortOrder = ()=>{
         setSortOrder((preOrder) =>{
             const newOrder = (preOrder === "asc") ? "desc" : "asc";
             params.set("sortby", newOrder);
-            navigate(`${pathName}?${params}`);
+            navigate(`${pathname}?${params}`);
             return newOrder;
         })
     };
@@ -87,7 +87,7 @@ const Filter =()=>{
                     </Select>
                 </FormControl>
                 {/*Sort Button & Clear Filter*/}
-                <Tooltip title="Sorted price by: Asc">
+                <Tooltip title={`Sorted price by: ${sortOrder === "asc" ? "Ascending" : "Descending"}`}>
                     <Button variant="contained" onClick={toggleSortOrder} color="primary" className="flex items-center gap-2 h-10">
                         Sort By {sortOrder === "asc" ? (<FiArrowUp size={20}/>):(<FiArrowDown size={20}/>)}
                     </Button>
