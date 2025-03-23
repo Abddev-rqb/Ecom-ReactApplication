@@ -21,7 +21,7 @@ export const fetchProducts = (queryString) => async (dispatch)=>{
             payload: error?.response?.data?.message || "Failed to fetch",
         });
     }
-}
+};
 export const fetchCategories = () => async (dispatch)=>{
     try{
         dispatch({type: "CATEGORY_LOADER"});
@@ -43,4 +43,17 @@ export const fetchCategories = () => async (dispatch)=>{
             payload: error?.response?.data?.message || "Failed to fetch",
         });
     }
-}
+};
+export const addToCart = (data, qty=1, toast) =>
+    (dispatch, getState)=>{
+        const {products} = getState().products;
+        const getProduct = products.find((item)=> item.productId === data.productId);
+        const isQuantityExist = getProduct.quantity >= qty;
+        if (isQuantityExist){
+            dispatch({ type: "ADD_CART", payload: {...data, quantity: qty}});
+            toast.success(`${data?.productName} added to cart`);
+            localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+        }else{
+            toast.delete("Out of stock");
+        } 
+};
