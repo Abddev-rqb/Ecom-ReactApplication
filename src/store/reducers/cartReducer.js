@@ -1,8 +1,8 @@
 const initialState = {
     cart:[],
     totalPrice:0,
-    cartId:null
-}
+    cartId:null,
+};
 
 export const cartReducer = (state = initialState, action) =>{
     switch (action.type) {
@@ -27,8 +27,7 @@ export const cartReducer = (state = initialState, action) =>{
                     ...state,
                     cart:newCart,
                 };
-            }
-    
+            }    
         default:
             return state;
     }
