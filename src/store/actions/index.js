@@ -71,3 +71,12 @@ export const increaseCartQuantity = (data, toast, currentQuantity, setCurrentQua
             toast.error("Quantity reached to limit");
         }
 };
+export const decreaseCartQuantity = (data, newQuantity)=>(dispatch, getState)=>{
+    dispatch({ type:"ADD_CART", payload:{...data, quantity: newQuantity},});
+    localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+}
+export const removeFromCart = (data, toast)=>(dispatch, getState)=>{
+    dispatch({ type:"REMOVE_CART",  payload: data });
+    toast.success(`${data.productName} removed from cart`);
+    localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+}
