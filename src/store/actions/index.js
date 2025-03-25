@@ -74,12 +74,12 @@ export const increaseCartQuantity = (data, toast, currentQuantity, setCurrentQua
 export const decreaseCartQuantity = (data, newQuantity)=>(dispatch, getState)=>{
     dispatch({ type:"ADD_CART", payload:{...data, quantity: newQuantity},});
     localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
-}
+};
 export const removeFromCart = (data, toast)=>(dispatch, getState)=>{
     dispatch({ type:"REMOVE_CART",  payload: data });
     toast.success(`${data.productName} removed from cart`);
     localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
-}
+};
 export const authenticateSignInUser = (sendData, toast, reset, navigate, setLoader)=>async (dispatch) =>{
     try {
         setLoader(true);
@@ -96,7 +96,7 @@ export const authenticateSignInUser = (sendData, toast, reset, navigate, setLoad
         setLoader(false);
     }
 
-}
+};
 export const registerNewUser = (sendData, toast, reset, navigate, setLoader)=>async (dispatch) =>{
     try {
         setLoader(true);
@@ -111,4 +111,9 @@ export const registerNewUser = (sendData, toast, reset, navigate, setLoader)=>as
         setLoader(false);
     }
 
-}
+};
+export const logOutUser = (navigate) => (dispatch)=>{
+    dispatch({type:"LOG_OUT"});
+    localStorage.remove("auth");
+    navigate("/login");
+};
