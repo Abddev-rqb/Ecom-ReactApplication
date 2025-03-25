@@ -5,6 +5,7 @@ import { IoExitOutline } from 'react-icons/io5';
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import BackDrop from "./BackDrop";
 
 const UserMenu = () =>{
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -61,6 +62,7 @@ const UserMenu = () =>{
             </div>
           </MenuItem>
       </Menu>
+      {open && <BackDrop />}
     </div>
   );
 };
