@@ -4,9 +4,12 @@ import InputField from '../shared/InputField';
 import Spinners from '../shared/Spinners';
 import { Link } from 'react-router-dom';
 import { FaAddressCard } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUpdateUserAddress } from '../../store/actions';
+import toast from 'react-hot-toast';
 
-const AddAddressForm = () => {
+const AddAddressForm = ({ address, setOpenAddressModal }) => {
+  const dispatch = useDispatch();
   const { btnLoader } = useSelector((state)=> state.errors);
   const {
     register,
@@ -17,8 +20,7 @@ const AddAddressForm = () => {
         mode:"onTouched",
     });
   const onSaveAdderssHandler = async (data) =>{
-    console.log("user saved");
-    // dispatch(authenticateSignInUser(data, toast, reset, navigate, setLoader));
+    dispatch(addUpdateUserAddress(data, toast, address?.addressId, setOpenAddressModal));
   };
   return (
     <div className="">
@@ -32,7 +34,7 @@ const AddAddressForm = () => {
               <InputField 
                   label="Building Name"
                   required
-                  id="building"
+                  id="buildingName"
                   type="text"
                   message="*Building name is required"
                   placeholder="Enter Building Name"
