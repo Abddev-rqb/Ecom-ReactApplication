@@ -13,7 +13,7 @@ export const fetchProducts = (queryString) => async (dispatch)=>{
             totalPages:data.totalPages,
             lastPage:data.lastPage,
         })
-        dispatch({type: "FETCHING_SUCCESS"});
+        dispatch({type: "IS_SUCCESS"});
     }catch(error){
         console.log(error);
         dispatch({
@@ -129,5 +129,19 @@ export const addUpdateUserAddress = (sendData, toast, addressId, setOpenAddressM
         dispatch({type:"IS_ERROR", payload: null,});
     } finally{
         setOpenAddressModal(false);
+    }
+};
+export const getUserAddresses = () => async (dispatch, getState)=>{
+    try{
+        dispatch({type: "IS_FETCHING"});
+        const { data } = await api.get("/user/addresses");
+        dispatch({type: "USER_ADDRESS", payload: data});
+        dispatch({type: "IS_SUCCESS"});
+    }catch(error){
+        console.log(error);
+        dispatch({
+            type: "IS_ERROR",
+            payload: error?.response?.data?.message || "Failed to fetch user Address",
+        });
     }
 };
